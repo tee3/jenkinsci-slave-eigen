@@ -1,4 +1,4 @@
-FROM jenkinsci/jnlp-slave
+FROM tee3/jenkinsci-jnlp-slave-boostcpp:0.0.1
 
 LABEL maintainer="Thomas Brown <tabsoftwareconsulting@gmail.com>"
 
@@ -6,23 +6,8 @@ LABEL maintainer="Thomas Brown <tabsoftwareconsulting@gmail.com>"
 USER root
 
 RUN apt-get -q -y update && apt-get -q -y install \
-    clang \
-    g++ \
-    \
-    libboost-dev \
-    cmake \
-    make \
-    \
-    doxygen \
-    \
-    libboost-all-dev \
+    libeigen3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # restore user
 USER jenkins
-
-# set up Boost.Build
-RUN echo > "${HOME}/user-config.jam"
-RUN echo "using doxygen ;" >> "${HOME}/user-config.jam"
-RUN echo "using gcc ;" >> "${HOME}/user-config.jam"
-RUN echo "using clang ;" >> "${HOME}/user-config.jam"
