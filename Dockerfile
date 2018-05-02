@@ -1,13 +1,12 @@
-FROM tee3/jenkinsci-jnlp-slave-boostcpp:0.1.0
+FROM tee3/jenkinsci-slave-boostcpp:0.0.2
 
 LABEL maintainer="Thomas Brown <tabsoftwareconsulting@gmail.com>"
 
 # set user for modifying image
 USER root
 
-RUN apt-get -q -y update && apt-get -q -y install \
-    libeigen3-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN dnf -y update && dnf -y install \
+    eigen3-devel
 
 # restore user
 USER jenkins
